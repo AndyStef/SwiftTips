@@ -1,3 +1,7 @@
+//TODO: - ask someone if custom queues are only for main thread
+//Походу чергу можна загнати в глобал через відповідний ініт
+
+
 //simpliest way to create own queue on main thread
 let queue = DispatchQueue(label: "com.stef.myQueue")
 queue.sync {
