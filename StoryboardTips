@@ -1,2 +1,3 @@
 1. Control + Shift + mouse click -> View hierarchy under mouse and select needed view.
 2.Command + equals to resize view to fit content
+3.Hold Command key while dragging view to another position to prevent it from going on another view.
