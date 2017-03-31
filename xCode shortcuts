@@ -1,0 +1,25 @@
+Shortcut keys: 
+//For project
+- cmd + R - build and run project 
+- cmd + B - build project 
+- cmd + shift + K - clean project 
+- cmd + . - stop execution
+
+//Code work 
+- cmd + / - comment/uncomment selected lines of code 
+- cmd + ] or [ - change intendation on one Tab 
+- ctrl + i - change structure of code to fit guideline
+- cmd + j - open assistant editor 
+
+//Project navigation
+- cmd + shift + O - find and open File in projects
+- ctrl + 6 - open file navigator
+- cmd + number[1 -7] change active tab of left navigation
+- cmd + 0 - hide left panel
+- cmd + alt + 0 - hide right panel  
+
+//Project search 
+- cmd + shift + F - global search
+
+//Refactoring 
+- cmd + ctrl + E - rename everything to one name
