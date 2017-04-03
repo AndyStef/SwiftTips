@@ -100,14 +100,66 @@ func recursiveFactorialFor(number: UInt) -> UInt {
 recursiveFactorialFor(number: 4)
 
 
+//Reverse every other word in sentence
+
+
+var sampleSentence = "Hello its gonna be reversed all the way down we go go ama hustla"
+
+func reverseWordsIn(sentense: String) -> String {
+    let allWords = sampleSentence.components(separatedBy: " ")
+    var newSentense = ""
+    
+    for index in 0...allWords.count - 1 {
+        let word = allWords[index]
+        if newSentense != "" {
+            newSentense += " "
+        }
+        
+        let reversed = String(word.characters.reversed())
+        newSentense += index % 2 == 1 ? reversed : word
+    }
+    
+    return newSentense
+}
+
+reverseWordsIn(sentense: sampleSentence)
+
+
+//FIBONACII sequence ------   0, 1, 1, 2, 3, 5, 8, 13, 21......
+
+
+func fibonacciNumFor(steps: Int) -> [Int] {
+    var sequence = [0, 1]
+    
+    if steps <= 1 {
+        return sequence
+    }
+    
+    for _ in 0...steps - 2 {
+        let first = sequence[sequence.count - 2]
+        let second = sequence.last!
+        sequence.append(first + second)
+    }
+    
+    return sequence
+}
 
 
 
+fibonacciNumFor(steps: 10)
+
+
+func recursionFibonacciFor(steps: Int, first: Int, second: Int) -> [Int] {
+    if steps == 0 {
+        return []
+    }
+    
+    return [first + second] + recursionFibonacciFor(steps: steps - 1 , first: second, second: first + second)
+}
 
 
 
-
-
+recursionFibonacciFor(steps: 10, first: 0, second: 1)
 
 
 
