@@ -13,6 +13,11 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
 //--------------------------------Drag'n'drop with touches
 
+//Трюк в тому: 
+//1. Фіксуєм точку дотику на в'ю : 
+//2. Від центру віднімаєм цю точку - touchOffset
+//3.При переміщенні - зміщуєм центр на touchOffset (додаєм до точки переміщення на головнії в'ю)
+
 import UIKit
 
 class ViewController: UIViewController {
