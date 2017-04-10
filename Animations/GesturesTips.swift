@@ -66,3 +66,36 @@ func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
 //gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)
 
 
+//6 a bit easier way for drag'n'drop with pan gesture
+func handlePan(panGesture: UIPanGestureRecognizer) {
+        if panGesture.state == .began {
+            UIView.animate(withDuration: 0.2, animations: { 
+                self.myView.backgroundColor = .green
+                self.myView.alpha = 0.7
+                self.myView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            })
+        } else if panGesture.state == .ended {
+            UIView.animate(withDuration: 0.2, animations: {
+                self.myView.backgroundColor = .red
+                self.myView.alpha = 1.0
+                self.myView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            })
+        }
+        
+        let translation = panGesture.translation(in: view)
+        let senderView = panGesture.view
+        guard let center = senderView?.center else { return }
+        senderView?.center = CGPoint(x: center.x + translation.x,
+                                     y: center.y + translation.y)
+        panGesture.setTranslation(CGPoint.zero, in: view)
+    }
+
+
+
+
+
+
+
+
+
+
