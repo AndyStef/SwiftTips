@@ -30,3 +30,39 @@ enum AnimationDirection: Int {
     
     
     //Comment: this animation is specific and can be used only if start and changed text have same length
+
+
+
+func moveLabel(_ label: UILabel, text: String, offset: CGPoint) {
+        //Creation of new label that has all properties as original label but its own text that will replace original
+        let auxLabel = UILabel(frame: label.frame)
+        auxLabel.text = text
+        auxLabel.font = label.font
+        auxLabel.textAlignment = label.textAlignment
+        auxLabel.textColor = label.textColor
+        auxLabel.backgroundColor = UIColor.clear
+        
+        //Add hidden label with new text
+        auxLabel.transform = CGAffineTransform(translationX: offset.x, y: offset.y)
+        auxLabel.alpha = 0.0
+        view.addSubview(auxLabel)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [.curveEaseIn], animations: {
+            label.transform = CGAffineTransform(translationX: offset.x, y: offset.y)
+            label.alpha = 0.0
+        }, completion: nil)
+        
+        UIView.animate(withDuration: 0.25, delay: 0.1, options: [.curveEaseIn], animations: {
+            auxLabel.transform = .identity
+            auxLabel.alpha = 1.0
+        }) { (_) in
+            //Clean up
+            auxLabel.removeFromSuperview()
+            
+            label.text = text
+            label.alpha = 1.0
+            label.transform = .identity
+        }
+    }
+
+//Comment: - this one is more nice
