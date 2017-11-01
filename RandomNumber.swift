@@ -27,4 +27,4 @@ let random = arc4random_uniform(11) + 10
 let red =  1 + drand48() * 255 
 let green =  1 + drand48() * 255 
 let blue =  1 + drand48() * 255 
-let randomColor = UIColor(colorLiteralRed: Float(red/255), green: Float(green/255), blue: Float(blue/255), alpha: 1.0)
+let randomColor = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1.0)
