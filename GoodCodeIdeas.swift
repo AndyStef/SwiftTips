@@ -39,3 +39,25 @@ extension UITableView {
     endUpdates()
   }
 }
+
+// The way to handle all the changes in realm db (very handy and nice)
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    itemsToken = items?.observe { [weak tableView] changes in
+      guard let tableView = tableView else { return }
+
+      switch changes {
+      case .initial:
+        tableView.reloadData()
+      case .update(_, let deletions, let insertions, let updates):
+        tableView.applyChanges(deletions: deletions, insertions: insertions, updates: updates)
+      case .error: break
+      }
+    }
+  }
+
+//
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    itemsToken?.invalidate()
+  }
