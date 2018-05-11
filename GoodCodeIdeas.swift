@@ -61,3 +61,26 @@ extension UITableView {
     super.viewWillDisappear(animated)
     itemsToken?.invalidate()
   }
+
+
+
+//Nice way for storing custom types in Realm
+private let lat = RealmOptional<Double>()
+private let lng = RealmOptional<Double>()
+var lastLocation: CLLocation? {
+  get {
+    guard let lat = lat.value, let lng = lng.value else {
+return nil
+}
+    return CLLocation(latitude: lat, longitude: lng)
+  }
+  set {
+    guard let location = newValue?.coordinate else {
+      lat.value = nil
+      lng.value = nil
+      return
+}
+    lat.value = location.latitude
+    lng.value = location.longitude
+  }
+}
