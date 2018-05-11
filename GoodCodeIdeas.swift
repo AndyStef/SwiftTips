@@ -84,3 +84,12 @@ return nil
     lng.value = location.longitude
   }
 }
+
+
+//Nice way for storing enum types in Realm
+@objc dynamic private var _department =
+  Department.technology.rawValue
+var department: Department {
+  get { return Department(rawValue: _department)! }
+  set { _department = newValue.rawValue }
+}
