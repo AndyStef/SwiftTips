@@ -115,3 +115,25 @@ let articlesAboutFrank = realm.objects(Article.self).filter("""
       $person.firstName BEGINSWITH %@ AND
       $person.born > %@).@count > 0
     """, "Frank", Date.distantPast)
+                                                            
+                                                            
+//DateFormatter                                                           
+extension DateFormatter {
+  static var mediumTimeFormatter: DateFormatter {
+    let f = DateFormatter()
+    f.dateStyle = .none
+    f.timeStyle = .medium
+    return f
+  }
+}
+                                                            
+//Random array element                                                           
+private func random(min: UInt32, max: UInt32) -> Int {
+  return Int(arc4random_uniform(max) + min)
+}
+
+extension Array {
+  func randomElement() -> Element {
+    return self[random(min: 0, max: UInt32(count-1))]
+  }
+}
