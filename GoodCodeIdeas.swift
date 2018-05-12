@@ -93,3 +93,16 @@ var department: Department {
   get { return Department(rawValue: _department)! }
   set { _department = newValue.rawValue }
 }
+
+
+//Save way to build NSPredicate
+extension Person {
+  static let fieldHairCount = "hairCount"
+  static let fieldDeceased = "deceased"
+  static func allAliveLikelyBalding(
+    `in` realm: Realm, hairThreshold: Int = 1000) -> Results<Person> {
+    let predicate = NSPredicate(format: "%K < %d AND %K = nil",
+      Person.fieldHairCount, hairThreshold, Person.fieldDeceased)
+    return realm.objects(Person.self).filter(predicate)
+  }
+}
