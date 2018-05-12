@@ -137,3 +137,24 @@ extension Array {
     return self[random(min: 0, max: UInt32(count-1))]
   }
 }
+
+                                                            
+//Different urls to store realm files
+                                                            
+let documentsUrl = try! FileManager.default
+    .url(for: .documentDirectory, in: .userDomainMask,
+      appropriateFor: nil, create: false)
+    .appendingPathComponent("myRealm.realm")
+                                                            
+let libraryUrl = try! FileManager.default
+    .url(for: .libraryDirectory, in: .userDomainMask,
+      appropriateFor: nil, create: false)
+    .appendingPathComponent("myRealm.realm")
+                                                            
+let bundledURL = Bundle.main
+  .url(forResource: "bundledRealm", withExtension: "realm")
+                                                            
+let sharedURL = FileManager.default
+  .containerURL(forSecurityApplicationGroupIdentifier:
+    "group.com.razeware.app")!
+  .appendingPathComponent("Library/shared.realm")
