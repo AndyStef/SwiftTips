@@ -106,3 +106,12 @@ extension Person {
     return realm.objects(Person.self).filter(predicate)
   }
 }
+
+//Complex Realm query with subquery
+let articlesAboutFrank = realm.objects(Article.self).filter("""
+    title != nil AND
+    people.@count > 0 AND
+    SUBQUERY(people, $person,
+      $person.firstName BEGINSWITH %@ AND
+      $person.born > %@).@count > 0
+    """, "Frank", Date.distantPast)
