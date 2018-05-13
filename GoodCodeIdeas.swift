@@ -158,3 +158,75 @@ let sharedURL = FileManager.default
   .containerURL(forSecurityApplicationGroupIdentifier:
     "group.com.razeware.app")!
   .appendingPathComponent("Library/shared.realm")
+                                                            
+                                                            
+                                                            
+                                                            
+extension ToDoItem {
+
+  static func all(in realm: Realm = try! Realm()) -> Results<ToDoItem> {
+    return realm.objects(ToDoItem.self)
+      .sorted(byKeyPath: ToDoItem.Property.isCompleted.rawValue)
+  }
+
+  @discardableResult
+  static func add(text: String, in realm: Realm = try! Realm()) -> ToDoItem {
+    let item = ToDoItem(text)
+    try! realm.write {
+      realm.add(item)
+    }
+    return item
+  }
+
+  func toggleCompleted() {
+    guard let realm = realm else { return }
+    try! realm.write {
+      isCompleted = !isCompleted
+    }
+  }
+
+  func delete() {
+    guard let realm = realm else { return }
+    try! realm.write {
+      realm.delete(self)
+    }
+  }
+}
+                                                            
+                                                            
+
+enum PathError: Error, LocalizedError {
+  case notFound
+
+  var errorDescription: String? {
+    switch self {
+      case .notFound: return "Resource not found"
+    }
+  }
+}
+
+class Path {
+  static func inLibary(_ name: String) throws -> URL {
+    return try FileManager.default
+      .url(for: .libraryDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+      .appendingPathComponent(name)
+  }
+
+  static func inDocuments(_ name: String) throws -> URL {
+    return try FileManager.default
+      .url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+      .appendingPathComponent(name)
+  }
+
+  static func inBundle(_ name: String) throws -> URL {
+    guard let url = Bundle.main.url(forResource: name, withExtension: nil) else {
+      throw PathError.notFound
+    }
+    return url
+  }
+
+  static func documents() throws -> URL {
+    return try FileManager.default
+      .url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+  }
+}
